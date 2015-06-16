@@ -1,0 +1,14 @@
+{
+  "name": "ml_workshiop",
+  "version": "0.0.1",
+  "description": "A simple machine learning workshop.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "author": "James Tillman <james.tillman.7@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.0.0"
+  }
+}

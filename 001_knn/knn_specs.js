@@ -2,6 +2,7 @@
 var KNN = require('./knn');
 var expect = require('chai').expect;
 var mnist = require('../lib/mnist_reader');
+var writer = require('../lib/writer');
 var randomPoints = require('../lib/rand');
 /*randomPoints is a function.  You would use it like this:
 
@@ -211,7 +212,7 @@ describe('Testing the basic KNN functionality.', function(){
 			knn.train(typeA);
 			knn.train(typeB);
 			var sample = randomPoints(100,[1,1],[1,0])
-			var results = knn.predictSingle(sample);
+			var results = knn.predict(sample);
 		});
 
 		/* The purpose of score is to take in another set of data in the same format as training data.
@@ -245,7 +246,21 @@ describe('Testing the basic KNN functionality.', function(){
 
 
 /*Switch this to a describe after you've completed the above.*/
-describe('Testing the KNN with data from the MNIST', function(){
+xdescribe('Testing the KNN with data from the MNIST', function(){
+
+	//Need more time, to handle all the data.
+	this.timeout(10000);
+
+	xit('Can handle somewhat chaotic data', function(){
+		var knn = new KNN(1);
+		var typeA = randomPoints(1000,[1,1],[0,0]).map(function(n){ return [n,0] });
+		var typeB = randomPoints(1000,[1,1],[.75,0]).map(function(n){ return [n,1] });
+		knn.train(typeA);
+		knn.train(typeB);
+		var typeB = randomPoints(100,[1,1],[0,0]).map(function(n){ return [n,0] });
+		var score = knn.score(typeB);
+		console.log("The program got a score of " + score + ", which means it got " + (score * 100) + "% correct.");
+	});
 
    /* The data given to the algorithm here is the mnist data.
       This means the algorithm is trying to classify into 10 different
@@ -260,26 +275,26 @@ describe('Testing the KNN with data from the MNIST', function(){
       Try to improve that score.  Does fiddling with the k-number alter it 
       very much?  Or does adding more training data alter it more?
 
+	  Running this will create .gif images, each showing how your program classified a particular image.
+	  What kind of mistakes does the program make?
+	  Are any of them mistakes you might make, in reading a digit?
+	  How could you improve accuracy of the program?
+	  
     */
-	it('Can be trained off the mnist data', function(){
+	xit('Can be trained off the mnist data', function(done){
 		var allElements = mnist.allElements();			//Should load up all 5000 elements
 		var knn = new KNN(2);
-		var trainingSet = allElements.slice(0,100); 	//Make the training set 
+		var trainingSet = allElements.slice(0,600); 	//Make the training set 
 		var testingSet = allElements.slice(1000,1100);	//Make the testing set
 		knn.train(trainingSet)
 		var score = knn.score(testingSet);
 		console.log("The program got a score of " + score + ", which means it got " + (score * 100) + "% correct.");
+
+		var toClassify = testingSet.map(function(n){return n[0]});
+		var toExport = knn.predict(toClassify).map(function(n, index){ return [toClassify[index],n]; } );
+		writer.exportClassified(toExport, done);
 	});
 
-	it('Can handle somewhat chaotic data', function(){
-		var knn = new KNN(1);
-		var typeA = randomPoints(1000,[1,1],[0,0]).map(function(n){ return [n,0] });
-		var typeB = randomPoints(1000,[1,1],[.8,0]).map(function(n){ return [n,1] });
-		knn.train(typeA);
-		knn.train(typeB);
-		var typeB = randomPoints(100,[1,1],[.8,0]).map(function(n){ return [n,1] });
-		var score = knn.score(typeB);
-		console.log("The program got a score of " + score + ", which means it got " + (score * 100) + "% correct.");
-	});
+
 
 });

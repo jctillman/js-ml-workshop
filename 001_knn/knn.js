@@ -52,7 +52,9 @@ KNN.prototype.predictSingle = function(point){
 
 KNN.prototype.predict = function(vectors){
 	var self = this;
-	return vectors.map(self.predictSingle);
+	return vectors.map(function(n){
+		return self.predictSingle(n);
+	});
 }
 
 KNN.prototype.score = function(inputAndOutput){

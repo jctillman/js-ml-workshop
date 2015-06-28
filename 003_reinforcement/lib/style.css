@@ -1,0 +1,36 @@
+#cart{
+	position: absolute;
+	width: 100px;
+	height: 25px;
+	left: 200px;
+	top: 225px;
+	background: #C55;
+}
+
+#stick{
+	position: absolute;
+	width: 4px;
+	height: 350px;
+	left: 248px;
+	top: 50px;
+	background: #BADA55;
+}
+
+#background{
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	left: 0px;
+	top: 0px;
+	z-index: -100;
+	overflow: hidden;
+	background: #D1E5E1;
+}
+
+#buttons{
+	position: absolute;
+	width: 500px;
+	height: 350px;
+	left: 520px;
+	top: 0px;
+}

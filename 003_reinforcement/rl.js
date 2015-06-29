@@ -3,7 +3,7 @@
 //The task is to define the RL_Agent class.
 function RLAgent(){
 	var self = this;
-	this.epsilon = 0.1;
+	this.epsilon = 0.2;
 	this.newEpisode = true;
 	this.actionValues = {};
 	this.returns = {};
@@ -17,6 +17,13 @@ RLAgent.prototype._discretize = function(arr, chunkSize){
 	});
 }
 
+RLAgent.prototype._trim = function(arr, absLimit){
+	var absLimit = absLimit || arr.map(function(){return 1});
+	return arr.map(function(n, i){
+		return Math.min(absLimit[i], Math.max(-absLimit[i], n));
+	});
+}
+
 RLAgent.prototype._max = function(arr, evaluatingFunction){
 	return arr.reduce(function(oldBest, current, index){
 		var evaluationOfCurrent = evaluatingFunction(current, index);
@@ -24,17 +31,16 @@ RLAgent.prototype._max = function(arr, evaluatingFunction){
 	}, {value: arr[0], score: evaluatingFunction(arr[0],0)}).value;
 }
 
+RLAgent.prototype._tokenize = function(state, moveNum){
+	return this._discretize(this._trim(state.concat(moveNum),[10,15,3,3,10]),[1.5,5,1000,1,1]).toString();
+}
+
 //Returns a number, the index of the best of the "all possible moves" thing.
 RLAgent.prototype._chooseBestMove = function(state, allPossibleMoves, actionValues){
 	var self = this;
 	return this._max(allPossibleMoves.map(function(_, n){return n;}), function(num){
-		var id = self._discretize(state.concat(num)).toString();
-		if (actionValues.hasOwnProperty(id)){
-			return actionValues[id] + Math.random();
-		}else{
-			actionValues[id] = 0;
-			return 0 + Math.random();
-		}
+		var id = self._tokenize(state, num);
+		return (actionValues.hasOwnProperty(id)) ? actionValues[id] : actionValues[id] = Math.random();
 	});
 }
 
@@ -59,11 +65,7 @@ RLAgent.prototype._continueEpisode = function(state, reward, allPossibleMoves){
 //Reward is a real number.
 //All possible moves is an arbitrary array, one element of which must be returned.
 RLAgent.prototype.decide = function(state, reward, allPossibleMoves){
-	if (this.newEpisode){
-		return this._initializeEpisode(state, reward, allPossibleMoves);
-	}else{
-		return this._continueEpisode(state, reward, allPossibleMoves);
-	}
+	return (this.newEpisode) ? this._initializeEpisode(state, reward, allPossibleMoves) : this._continueEpisode(state, reward, allPossibleMoves);
 }
 
 //RL
@@ -80,9 +82,9 @@ RLAgent.prototype.end = function(state, reward, cb){
 		}
 	});
 	this.episodeValues = [];
+	this.epsilon = this.epsilon * 0.9999
 	cb && cb();
 }
-
 
 var module = module || {};
 module.exports = RLAgent;

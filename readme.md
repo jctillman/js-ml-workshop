@@ -400,37 +400,39 @@ There are, of course, many other methods of clustering. DBSCAN, OPTICS, and hier
 
 ### Introduction
 
-In supervised learning, the ML algorithm learns from input paired with the correct output.  From this it learns to output data after being given input that has not been so paired.
+In supervised learning, the ML algorithm learns from input paired with the correct output.
 
-In unsupervised learning, the ML algorithm learns from data that lacks such a pairing.  From this it learns to characterize the structure of the data.
+In unsupervised learning, the ML algorithm learns to characterize the structure of data that has not been so paired.
 
-In reinforcement learning, the ML algorithm learns from interacting with an environment.  From this, it learns to act to maximize a reward signal from the environment.
+In reinforcement learning, the ML algorithm learns how to achieve goals by interacting with an environment.
 
-This task is very different than either of the former two kinds of machine learning.  So we can approach the ideas involved in this gradually.
+This task is very different than either of the former two kinds of machine learning.  So we can approach the ideas involved in this gradually.  Even so, it's good to keep in mind the very essence of the task: Reinforcement learning is about exploring an environment to figure out how to achieve particular goals.
 
-I'll start off, therefore, by describing the a simplified learning problem.  After explaining an algorithm that solves it, I'll move to the full reinforcement learning problem.
+Because we're starting gradually, I'll begin by describing a simplified learning problem.  After explaining an algorithm that solves it, I'll move to the full reinforcement learning problem.
 
 ### N-Armed Bandit
 
-Imagine a one-armed bandit: a casino-style gambling maching, with the spinning cherries and coins.
+Imagine a one-armed bandit: a casino-style gambling maching, the kind with the spinning wheels of symbols.
 
-Suppose, though, that instead of having a single arm it has _n_ arms.  Each of these arms returns some some particular reward on average: the first arm, for instance, might average 5 on each pull, while the second arm might average 10, and so on.  Of course, each arm only returns these rewards on average: different individual pulls on the first arm might return 0, or 30, or 0.5, or some other number.
+Suppose, though, that instead of having a single arm it has _n_ arms.  Each of these arms would return some some particular reward on average.  The first arm, for instance, might average 5 on each pull, while the second arm might average 10, and so on.  Of course, each arm only returns these rewards on average: Different individual pulls on the first arm might return 0, or 30, or 0.5, or some other number.
 
-(Suppose also, contrary to fact, that it is possible to win a positive amount on average while playing the machine.)
+(Suppose also, contrary to fact, that it is possible to win a positive amount on average while playing against the machine.)
 
-You do not know what any arm averages when you start.  Your goal, however, is to maximize the reward you receive over some finite number of pulls--say, a thousand pulls.
+You do not know what any arm averages when you start playing the _n_ armed bandit.  Your goal, however, is to maximize the reward you receive over some finite number of pulls--say, a thousand pulls.
 
-If you knew which arm averaged the most, then you could simply use that arm each time to maximize your reward over time.  So you probably want to try to determine which arm returns the most on average.  Furthermore, the more sure you are about which arm gives the highest average reward, the more sure you can be that you are pulling the arm most likely to maximize your reward over time.
+If you knew which arm averaged the most over time, then you could simply use that arm each time to maximize your reward over time.  So you probably want to try to determine which arm returns the most on average.  Furthermore, the more sure you are about which arm gives the highest average reward, the more sure you can be that you are pulling the arm most likely to maximize your reward over time.
 
-The only way to be sure about which arm gives the highest average reward, however, is to try each arm.  The only way to be very sure it to try each arm a great deal.  The more time you spend trying each arm, however, the less time you have to use whatever arm you currently judge best.  So the more time you take trying to be sure which arm is the best, the less time you have to pull the arm you currently judge to be best.
+The only way to be sure about which arm gives the highest average reward, however, is to try each arm.  The only way to be very sure it to try each arm a great deal.  The more time you spend trying each arm, however, the less time you have to use whatever arm you currently judge best.  So the more time you take trying to be sure about which arm is the best, the less time you have to pull the arm you currently judge to be best.
 
 This is the explore / exploit tradeoff.  If you want to use the knowledge you have, you are generally giving up on a chance to gain new knowledge.  If you want to gain new knowledge, you are generally giving up a chance to use the knowledge you have.  It is fundamental to reinforcement learning, to the n-armed bandit problem, and many real-life problems.
 
-A doctor who has several experimental treatments for a potentially-fatal disease, for instance, is faced with the same basic difficulty.  Will he use the most promising treatment from the start, and thereby risk the possibility that he is not using a much better treatment?  Or will he try many different treatments, and accept that many people will not get the treatment he currently judges best?
+A doctor who has several experimental treatments for a potentially-fatal disease, for instance, is faced with the same basic difficulty.  Will he use the most promising treatment from the start, and thereby risk the possibility that he is not using a much better treatment?  Or will he try many different treatments, and accept that many people will not get the treatment he currently judges best?  What should he do to best preserve life?
 
 ### ɛ-Greedy
 
-There are many interesting ways of approaching the n-armed bandit problem and the explore / exploit tradeoff, but I'm going to focus on a very simple method called ɛ-greedy.  That's pronounced "epsilon-greedy."  (Epsilon is a Greek character typically used by mathematicians to indicate a small amount.)
+
+
+There are many ways to approach the n-armed bandit problem and the explore / exploit tradeoff, but I'm going to focus on a simple method: ɛ-greedy.  That's pronounced "epsilon-greedy."  (Epsilon is a Greek character typically used by mathematicians to indicate a small amount.)
 
 The ɛ-greedy algorithm is a slightly more complex version of a simple greedy algorithm.  A greedy algorithm would simply maintain an estimate of which arm seems best, and always choose it.  It would estimate which arm is best by looking at the average of the amounts each arm has returned so far.
 
@@ -442,11 +444,11 @@ The ɛ-greedy algorithm does nearly the same thing, but with a few differences. 
 3. After either choice, update the average value for the arm that you picked.
 4. Go back to 2, until you have run out of choices.
 
-In short, ɛ-greedy algorithm is just like a greedy algorithm most of the time: with probability (1-ɛ), it simply chooses what currently appears to it to be best.  But some of the time, it will also choose a random action.  So it usually exploits, but with probability ɛ explores.
+In short, the ɛ-greedy algorithm is just like a greedy algorithm most of the time: with probability (1-ɛ), it simply chooses what currently appears to it to be best.  But some of the time, it will also choose a random action.  So it usually exploits, but with probability ɛ explores.
 
 ### Reinforcement Learning -- Introduction
 
-The _n_ armed bandit is an example of a _non-associative_ learning problem.  It is non-associative because good and bad actions are not associated with any particular states.  A bad action is always bad, and a good action is always good.  The full reinforcment learning problem, however, is _associative_. There can be in different states, and actions that are good in some states might not be good in others.
+The _n_ armed bandit is an example of a _non-associative_ learning problem.  It is non-associative because good and bad actions are not associated with any particular states.  An action with low expected reward will always have low expected reward, and an action with a high expected reward always will as well.  The full reinforcment learning problem, however, is _associative_. There can be in different states, and actions that are likely to result in high returns in some states will not in other states.
 
 In a full reinforcement learning problem, the thing learning and making decisions, which is controlled by the algorithm, is called the _agent_.  The thing it interacts with is called the _environment_.  Agent and environment interact over the course of a series of discrete time steps.  The series terminates when the training episode ends, although there are usually many training episodes.
 
@@ -456,25 +458,29 @@ In a full reinforcement learning problem, the thing learning and making decision
 
 As stated, agent and environment interact over a series of discrete times steps.  These are usually denominated by a lower-case 't'.
 
-In each time step during the episode, the agent receives some representation of the environment's _state_.  This is usually indexed by the time-step that the agent recieves it, and so is called s<sub>t</sub>.  On the basis of this state, the agent selects an _action_ which is similarly denominated as a<sub>t</sub>.  One time step later, the agent recives a new state s<sub>t+1</sub> with reward r<sub>t+1</sub>; it decides to perform action a<sub>t+1</sub>, and so on.  The reward is always a single real number.  The goal of the agent, of course, is to maximize the reward received over time, not the reward recieved in any particular time-step.
+In each time step during the episode, the agent receives some representation of the environment's _state_.  This is usually indexed by the time-step that the agent recieves it, and so is called s<sub>t</sub>.  On the basis of this state, the agent selects an _action_ which is similarly denominated as a<sub>t</sub>.  One time step later, the agent recives a new state s<sub>t+1</sub> with reward r<sub>t+1</sub>; it decides to perform action a<sub>t+1</sub>, and so on.
 
-Suppose our agent were a program meant to handle elevators in a building.  The state recieved by the agent could be a list of the up and down buttons currently depressed in all locations on all floors and of the floors on which each elevator currently rests.  The action selected by the agent could be lifting, lowering, or opening any elevator.  The reward would be some kind of signal inversely related to the wait-time at each elevator floor: it would be higher the shorted the wait each person experienced.  The agent would then aim to maximize the reward over time by lifting, lowering, or opening the elevators to minimize wait-time.
+There are a few constraints placed on these variables.  The reward is always a single real number.  The goal of the agent, of course, is to maximize the reward received over time, not the reward recieved in any particular time-step.  A learning agent's _value function_ helps it estimate the cumulative reward that will follow any particular state, and thereby helps it choose actions likely to result in great reward over time.
+
+Another assumption all algorithms make is that there are a finite number of states.  In cases where the raw state is defined by real numbers, of course, there could easily be an infinite number of states.  So in many cases the state is made discrete by rounding each number defining it to the nearest integer, or tenth of an integer or whatever is suitable fo the application at hand.
+
+Here's an example of the above.  Suppose our agent were a program meant to handle elevators in a building.  The state could be an array, some of whose values are 1 or 0 depending on whether particular up / down buttons are pressed, and some of whose values indicate the current elevation and speeds of each elevator.  The action selected by the agent could be lifting, lowering, or opening any elevator.  The reward would be some kind of signal inversely related to the time between button-depression and door-opening at each building floor: it would be higher the shorter this period was.  The agent would then aim to maximize the reward over time by lifting, lowering, or opening the elevators to minimize wait-time. 
 
 ### Markov Property
 
-Let me talk about state signals for a bit.
+Let me talk about state for a bit.
 
 A state signal, s<sub>t</sub>, is said to satisfy the "Markov Property" when it compactly summarizes all relevant information from past states in the environment.
 
-Let me give an example. Suppose I were to tell you the location of all the chess pieces on a board, and ask you what the best move was.  Any further information about all the previous locations of these pieces at earlier game-states would be superfluous--it would be unnecessary for determining what the best move is now.  So the state signal of the location of all the pieces of the board is Markov.
+Here's an example.  Suppose I were to tell you the location of all the chess pieces on a board, and ask you what the best move was.  Any further information about all the previous locations of these pieces at earlier game-states would be superfluous--it would be unnecessary for determining what the best move is now.  So the state signal of the location of all the pieces of the board is Markov.
 
 Similarly, the location, velocity, and spin of a cannonball is Markov--after you know all these things about it, any further information about its past location, velocity, or spin is irrelevant to predicting its future.
 
-To put things in a mildly technical fashion, a state signal is Markov if the probability that s<sub>t+1</sub> = s' given s<sub>t</sub>, is the same as the probability that s<sub>t+1</sub> = s' given s<sub>t</sub> and any set of s<sub>t-1</sub>, s<sub>t-2</sub>... s<sub>t-n</sub>.
+To put things in a mildly technical fashion, a state signal is Markov if the probability that s<sub>t+1</sub> = s' given s<sub>t</sub>, is the same as the probability that s<sub>t+1</sub> = s' given s<sub>t</sub> and any arbitrary set of s<sub>t-1</sub>, s<sub>t-2</sub>... s<sub>t-n</sub>.
 
-A number of learning algorithms are guaranteed to converge to the best possible solution, given that the state signal they work from satisfies the Markov property. In fact, many if not most real-life state signals do *not* satisfy the Markov Property; the problem we will solve does not have a state signal that does this.  But the algorithms that are guaranteed to work with a Markov state-signal nevertheless also often work very well with a state-signal that is not Markov.
+A number of learning algorithms are guaranteed to converge to the best possible solution, given that the state signal they work from satisfies the Markov property. In fact, many if not most real-life state signals do *not* satisfy the Markov Property; the problem we will solve does not have a discrete state signal that does this.  But the algorithms that are guaranteed to work with a Markov state-signal nevertheless also often work moderately well with a state-signal that is not Markov.
 
-One more thing about state signals.  If the state has continuous values, as the states will in the problem we'll be working with, then there are obviously an infinite number of different states possible.  There area a few ways of dealing with this: We'll round each continuous value to a discrete value, so that there are a finite rather than infinite number of different states possible.
+Remember that if the state has continuous values, as the states will in the problem we'll be working with, then there are obviously an infinite number of different states possible.  There area a few ways of dealing with this: We'll round each continuous value to a discrete value, so that there are a finite rather than infinite number of different states possible.
 
 ### Policies
 
@@ -482,15 +488,94 @@ There are a few more terminological and conceptual things we need to get over be
 
 A _policy_ is a mapping from every possible state to an action or actions.  Every agent needs to have a policy, because every agent needs to be able to decide what to do on being given any particular state.  A policy is usually denominated by the character 𝜋.
 
-Policies can be either _stochastic_ or _determinate_.  A determinate policy alwasy returns the same action on being given the same state. One writes a determinate policy as a function taking a single state, 𝜋(s), whichthen returns some action a.  On the other hand, a stochastic policy will sometimes return some action from a state and sometimes retun some other action.  One can write a stochastic policy as a function taking two variables, 𝜋(s,a), which returns the probability that the policy will indicate action a on being given state s.
+Policies can be either _stochastic_ or _determinate_.  A determinate policy alwasy returns the same action on being given the same state. One writes a determinate policy as a function taking a single state, 𝜋(s), which then returns some action a.  On the other hand, a stochastic policy will sometimes return some action from a state and sometimes retun some other action.  One can write a stochastic policy as a function taking two variables, 𝜋(s,a), which returns the probability that the policy will indicate action a on being given state s.
 
-This may sound somewhat complex, but is really very simple.  When we say a professor has a policy of penalizing five points for every day a paper is late, we're informally indicating how 𝜋(s) maps onto a set of actions for the professor.
+This may sound somewhat complex, but is really very simple.  When we say a professor has a policy of penalizing five points for every day a paper is late, we're informally indicating how 𝜋(s) maps onto a set of actions for the professor.  A policy for learning agent does exactly the same thing.
 
 ### Action-Value Functions
 
 Some policies can clearly be better than others.  The policy of waking up when your alarm goes off is better, at least so far as rewards recieved from one's employer, than the policy of hitting snooze two dozen times.  More formally, one policy is better than another if following the better policy from any state results rewards in greater or equal to those which occur from following the worse policy.
 
-Each state has a different expected value, then, beneath different policies.  Similarly, taking a particular action from a particular state will have a different expected value beneath different policies.  This later quantity is the quantity with which we'll be concerned in this.
+Each state has a different expected value, then, beneath different policies.  A value function, you'll recall, helps you estimate the cumulative reward expected after being in any particular state, beneath a particular policy.  Similarly, taking a particular action from a particular state will have a different expected value beneath different policies.  We'll be concerned with estimating the state-action value.
+
+### Monte Carlo Value Estimation
+
+Suppose we have some arbitrary policy .  Suppose furthermore it is a "soft" policy--that is, for every possible action in every possible state, there is a non-zero chance of that action being executed.  To put this in another way, for a soft policy 𝜋(s,a) > 0 for all states and all actions possible from each state.
+
+Given such a policy, how can we determine the state-action values relative to that policy?  The problem of answering this question is known as the _prediction problem_ or the task of _policy_ evaluation.  Different reinforcement learning algorithms often differ chiefly by having different answers to this question.
+
+Suppose that we run through a training episode using soft policy 𝜋 to make decisions.  Suppose, furthermore, at each step in the episode we save (1) the state of that step and the move taken in that step and (2) the reward in that step.  After the training episode concludes, we could run through each saved step from beginning to end.  While going through the steps, every time we find a state-action pair that we had not seen until that point in the training episode we could sum up the total rewards which ocurred _after_ the first ocurrence of that state-action pair.  This summed value could be pushed to an array specific to that state-value pair.  This process could then be repeated through many training episodes.
+
+Because the policy is soft, over time this procedure is guaranteed to visit every state-value pair.  Each value which it pushes to the arrays specific to each state-action pair is the the total cumulative reward following that state, over one single episode.  As the number of episodes increases, the average of each of these arrays is then guaranteed to approach the state-action value of that state and action for policy 𝜋.  And this is a Monte-Carlo method of estimating that value over the course of many training episodes.
+
+Let me write out the algorithm explicitly.  I presuppose beneath you have a policy 𝜋 such that 𝜋(s,a) > 0 for every state and every action.
+
+1. Initialize a 'returns' object and an 'state-action' object.  
+2. For each training episode.
+	1. Initialize an array 'steps'.
+	2. Run through the episode to the end, while using policy 𝜋.  For each time step, push the state-action pair and the reward for that time step to 'steps'.
+	3. Step through each of the steps saved after running through the episode.  Every time you encounter a state-action pair for the first time, push the sum of the rewards following that state-action pair to the array in the object 'returns' specific to that state-action pair.
+	4. Let the properties in the 'action-value' object equal the average of the the arrays beneath the 'action-value'
+3. Conclude after a set number of iterations, or after the values in the 'action-value' object cease changing more than a small amount.
+
+This will give you state-action function for all states beneath a set policy.
+
+### Being Greedy
+
+The prior section explains how to estimate the state-action function for any soft policy by using Monte-Carlo methods.
+
+Suppose now now that the specific policy 𝜋 which the learning agent is using, and for which it has estimated the action-value function, is the ɛ-greedy policy.  The ɛ-greedy policy was introduced in the context of a the _n_ armed bandit, so let me take a second to explain what this would mean.
+
+On each time step, the ɛ-greedy policy is given a particular state.  It wishes to take the action which will result in the greatest value--so, in this context, this means that it will look a the values in the action-value function accessible from that state.  To rephrase the prior sentence: It will examine the action-value function values for (s, a<sub>1</sub>), (s,a<sub>2</sub>), and so on, until it has looked at the values of the action-value function for each of the possible actions from that state.  It will then (with probability 1-ɛ) choose the action with the greatest expected cumulative reward.
+
+This should be a little confusing.
+
+The above presupposes, you'll notice, that there already is an action-value function that the ɛ-greedy policy is using.  But the process of estimating the action-value function for a given policy, in the prior section, presupposes that there already is some policy for which the the alogorithm is finding the action-value function.  This seems a little problematic.  As the action-value function changes, it seems like the ɛ-greedy policy will change; and as the ɛ-greedy policy changes, it seems like the action value function relative to that policy will change as well. 
+
+### General Policy Iteration
+
+The aforementioned problem is actually one instance of a general reinforcement-learning algorithm called general policy iteration. 
+
+In general policy iteration, starts with an arbitrary policy and an arbitrary action-value estimate for that policy.  One then alternates improving (1) the action-value function relative to the arbitrary policy and (2) making the policy greedy (or, as in the case of ɛ-greedy, more greedy) relative to that action-value function.  These two work against each other, in the sense that each provides a shifting target.  But they work together because, in the end, the only stable position for either of them is (1) the optimal action-value function, which describes gives the value of each state beneath the optimal ɛ-greedy policy and (2) the optimal ɛ-greedy policy.
+
+### Complete Monte Carlo Algorithm
+
+Let me explain the full algorithm
+
+1. Initialize the 'returns' object and the 'state-action' object.  They can both be empty to start off.
+2. For each training episode.
+	1. Initialize an empty array, 'steps'
+	2. Run through the entire episode, while following the ɛ-greedy policy.  (In cases where the state-action object is empty for a particular state-action pair, fill it with a default value.)  As you run through, push the state-action pair that you follow and the reward particular to each state to the array steps.
+	3. Step through each of the steps saved after running through the episode.  Every time you encounter a state-action pair for the first time, push the sum of the rewards following that state-action pair to the array in the object 'returns' specific to that state-action pair.
+	4. Let the properties in the 'action-value' object equal the average of the the arrays beneath the 'returns'
+3. Conclude after a set number of iterations, after the values in the 'state-action' object cease to change more than a small amount.
+
+### Coding
+
+As before, you'll find a set of specs and a folder to modify in the folder specific to this section.
+
+Unlike before, passing the specs isn't really the point of this part of the exercise.  If you open the 
+
+## Further Resources
+
+### Resources
+
+This was only a very, very superficial introduction to machine learning, which has left out vast quantities of the deep mathematical roots of the subject.
+
+Here are a few things to follow up with if you're interested in more.
+
+The first thing would be to gain a really good knowledge of statistics, linear algebra, and calculus.  None of the below absolutely require these things, but they're going to be extremely useful for anyone studying ML.
+
+One thing that this tutorial has not covered at all was neural networks.  You can find a really superb and exceedinly gentle introduction to neural networks at (this)[http://neuralnetworksanddeeplearning.com/index.html] website.  It uses Python rather than Javascript, but if you want to do Machine Learning you're going to have to learn something other than Javascript anyway; Python is one of several languages that a fair amount of ML work is done in.
+
+Wikipedia is actually a great resource for ML algorithms.  Using Wikipedia to implement a perceptron, a naive Bayesian classifier, or some similar supervised learning algorithm would be a good exercise which should be within the range of people who have completed this tutorial.
+
+(Udacity)[www.udacity.com] has several machine learning and artificial intelligence courses.  Several of them focus too much on using libraries and not sufficiently on comprehension, to my mind, but it is nevertheless a very good resource.  They offer a data science nanodegree, which should go into all of these subjects at least moderately deeply.  Other MOOCs are supposed to be good as well, although I haven't had time to try them.  
+
+One thing to be aware of is, as far as I can tell, most machine learning seems to focus on supervised and unsupervised learning; reinforcement learning does not fit as well within the "big data analysis" paradigm which seems to dominate machine learning classes.  So it seems unlikely that you'll learn reinforcement learning techniques unless you consciously set forth to learn them, unless I am mistaken.  Barto and Sutton's "Reinforcement Learning: An Introduction," has been an absolutely invaluable source to me while writing this tutorial, and I highly recommend it as a basic introduction to the topic.
+
+Finally, if you're interested artificial intelligence simply speaking, Russel and Norvig's "Artificial Intelligence: A Modern Approach" is probably the place you want to start. 
+
 
 
 

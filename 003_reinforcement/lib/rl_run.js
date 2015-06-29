@@ -70,7 +70,7 @@
 	var startGame = function(agent, displayCallback, cb){
 		var state = setInitialSettings();
 		var i = window.setInterval(function(){
-			var moves = agent.decide([state.player.loc, state.player.ang], 1, allPossibleMoves);
+			var moves = agent.decide([state.player.loc-state.world.length/2, state.player.ang, state.player.locSpeed, state.player.angSpeed], 1, allPossibleMoves);
 			state = physics(state, moves);
 			displayCallback(state);
 			rules(state, function(state){
@@ -84,7 +84,7 @@
 		var state = setInitialSettings();
 		var playing = true;
 		while(playing){
-			var moves = agent.decide([state.player.loc, state.player.ang], 1, allPossibleMoves);
+			var moves = agent.decide([state.player.loc-state.world.length/2, state.player.ang, state.player.locSpeed, state.player.angSpeed], 1, allPossibleMoves);
 			state = physics(state, moves);
 			displayCallback(state);
 			rules(state, function(state){

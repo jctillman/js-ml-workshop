@@ -21,7 +21,7 @@ describe('Testing required k-means functionality.', function(){
 		expect(typeof KMeans).to.equal('function');
 	});
 
-	it('should have all the requisite function', function(){
+	it('should have all the requisite functions', function(){
 		var km = new KMeans();
 		//The array 'points' is the set of vectors with which the algorithm is to be trained.
 		expect(km.points).to.be.empty;
@@ -37,7 +37,7 @@ describe('Testing required k-means functionality.', function(){
 	   look through them in any event, though, to get an idea of the kinds of
 	   functions you will need to write.
 	 */
-	describe('Optional helper functions to help build the k-means algorithm', function(){
+	xdescribe('Optional helper functions to help build the k-means algorithm', function(){
 
 		/* The function '_distance' takes as input two vectors of any length,
 		   and returns the Euclidean norm of the difference between them
@@ -69,6 +69,10 @@ describe('Testing required k-means functionality.', function(){
 			expect(km._max([0,1,2,3,4,5,6], function(n){return n;})).to.equal(6);
 			expect(km._max([0,1,2,3,4,5,6], function(n){return -n;})).to.equal(0);
 			expect(km._max(['a','sas','asdasd','ssd'], function(n){return n.length;})).to.equal('asdasd');
+			//With index
+			expect(km._max([0,1,2,3,4,5,6], function(n, index){return -index;})).to.equal(0);
+			expect(km._max([10,1,2,3,4,5,6], function(n, index){return -index;})).to.equal(10);
+			expect(km._max([7,1,2,6,4,3,2], function(n, index){return index+n;})).to.equal(6);
 		});
 
 		/* The function '_clusterEvaluator' takes as input two things--an array of
@@ -85,7 +89,8 @@ describe('Testing required k-means functionality.', function(){
 
 		   Note that you would NOT want to use this function in a straightforward way in
 		   '_max' above, because the LOWER the value returned from this the 
-		   better the clustering, while '_max' returns the HIGHEST value.
+		   better the clustering, while '_max' returns the HIGHEST value.  But you could use a function
+		   that calls it.
 
 		   Might want to use '_distance'.
 		*/
@@ -163,7 +168,7 @@ describe('Testing required k-means functionality.', function(){
 		/* If you follow the path lined out here, .cluster will return the best cluster
 		   of several iterations of k-means.
 
-		   This function, '_cluster', simply returns a single cluster produced by one iteration of k-means.
+		   This function, '_clusters', simply returns a single cluster produced by one iteration of k-means.
 
 		   This will probably use '_shiftCentroids' and '_haveShifted'.  You might find it useful to
 		   write an ancillary function that helps you choose random initial locations from the
@@ -366,9 +371,9 @@ describe('Testing required k-means functionality.', function(){
   ...of course, most cases will not be nearly as clear as the above.
 */
 
-describe('Testing optional k-means functionality', function(){
+xdescribe('Testing optional k-means functionality', function(){
 
-	describe('The algorithm can determine the number of clusters, not being told how many there are.', function(){
+	xdescribe('The algorithm can determine the number of clusters, not being told how many there are.', function(){
 
 		/* The function 'findClusters' should take a number, which is the maximum
 		   number of clusters it should search for.
@@ -449,7 +454,7 @@ describe('Testing optional k-means functionality', function(){
 
 	   Anyhow, just do here what you did in the immediately prior section with the fake data.
 	 */
-	describe('it can determine the number of clusters in the MNIST data as well', function(){
+	xdescribe('it can determine the number of clusters in the MNIST data as well', function(){
 
 		it('can determine the number of clusters when there are two characters', function(done){
 			//Fifteen second timeout...

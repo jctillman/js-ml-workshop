@@ -10,7 +10,8 @@ var randomPoints = require('../lib/rand');
 	
   This would return an array of length 100.
 
-  Each element of the array would be an array / vector of length two.
+  Each element of the array would be an array / vector of length two, because 
+  the second and third parameter are of length two.
 
   The values in each vector would be between [2,2] and [3,3]--that is,
       the n-th value in each vector is chosen by multiplying the n-th
@@ -29,6 +30,7 @@ describe('Testing the basic KNN functionality.', function(){
 	});
 
 	//Objects created by the KNN should have a kSize variable, set by the constructor, and a points array.
+	//The points array holds the training data.
 	it('creates instances with k-size and an empty points array', function(){
 		var knn = new KNN(10);
 		expect(knn.kSize).to.equal(10);
@@ -77,22 +79,16 @@ describe('Testing the basic KNN functionality.', function(){
 		  However, if you implement these functions, it will be much easier to write predictSingle,
 		  and they do provide a useful way to break down the things that predictSingle will need to do.
 		*/
-		describe('Optional helper functions to be used in predict and predictSingle', function(){ 
+		xdescribe('Optional helper functions to be used in predict and predictSingle', function(){ 
 
-			/* The function _distance's basic purpose is to find the Euclidean norm
+			/* The purpose of the function '_distance' is to find the Euclidean norm
 			   as between two vectors.
 
 			   As input, it should take two vectors of any size.
 
-			   As output, it should return a number which is either the distance between them as determined by the
-			   Euclidean norm or the Euclidean norm squared.
+			   As output, it should return the distance between them as determined by the
+			   Euclidean norm.
 
-			   (Sometimes ML algorithms use the Euclidean norm squared because it takes less time to compute
-			   and because vectors ordered by the Euclidean norm squared will be in the same order as vectors
-			   ordered by the Euclidean norm.
-			   
-			   That is--it makes no difference to the output of k-nearest-neighbors which one you use.
-			   The test specs should work with either.)
 			 */
 			it('has function _distance, which works as expected', function(){
 				var knn = new KNN(3);
@@ -107,18 +103,18 @@ describe('Testing the basic KNN functionality.', function(){
 				expect(for_dim).to.equal(1)
 			});
 
-			/* The function _distances' basic purpose is to take a single, unclassified vector, 
+			/* The purpose of the function '_distances' is to take a single, unclassified vector, 
 			   and find the distance between that vector and a bunch of other, already-classified vectors.
 
 			   As input, it should take a vector as the first argument.
 
 			   It should take an array of training data as the second argument.
-			   See the comment on "train" to see what this is. 
+			   See the comment on "train" to see what this will look like. 
 
 			   As output, it should give an array of sub-arrays which have length two.
 			   	  The first element of each n-th sub-array should be
-			   	  the distance between the vector handed in, and the n-th
-			   	  element of the input array.
+			   	  the distance between the first vector handed in, and the n-th
+			   	  element of the training data.
 
 			   	  And the second element should be the classification
 			   	  of the n-th element of the input array.
@@ -294,7 +290,5 @@ xdescribe('Testing the KNN with data from the MNIST', function(){
 		var toExport = knn.predict(toClassify).map(function(n, index){ return [toClassify[index],n]; } );
 		writer.exportClassified(toExport, done);
 	});
-
-
 
 });

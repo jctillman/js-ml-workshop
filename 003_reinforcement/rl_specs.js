@@ -102,7 +102,6 @@ describe('All tests for the reinforcement learning agent', function(){
 		   action-value in actionValues.
 		*/
 		it('_chooseBestMove function works', function(){
-
 			//Is a function
 			var instance = new rl();
 			expect(typeof instance._chooseBestMove).to.equal('function');
@@ -118,6 +117,61 @@ describe('All tests for the reinforcement learning agent', function(){
 			expect(typeof instance._chooseBestMove).to.equal('function');
 		})
 
+	});
+	/* Finally, to the necessary functions.*/
+
+
+
+	/* When created, an instance of RLAgent should have a few variables that will be
+	   exceedingly useful later on.
+	 */
+
+	   it('has necessary variables', function(){
+	   		var inst = new rl();
+	   		expect(inst.hasOwnProperty('epsilon')).to.equal(true);
+	   		expect(inst.hasOwnProperty('newEpisode')).to.equal(true);
+	   		expect(inst.hasOwnProperty('actionValues')).to.equal(true);
+	   		expect(inst.hasOwnProperty('returns')).to.equal(true);
+	   });
+
+
+	 /*
+	   The function 'decide' is called every time-step something occurs in the environment, except for the last
+	   step in the episode, which is called with 'end' instead.
+
+	   'decide' will be called with the following variables: state, reward, and allPossibleMoves.
+
+	   state: This is an array which summarizes the state of the cart-with-pole system.
+	   The variables in it are [location, angularLocation, velocity, angularVelocity]
+	   These variables are not integers, and will need to be discretized, as mentioned above.
+
+	   reward: This is a number.  The reward will be 1 for every frame where the stick does not fall over
+	   and the cart does not run off the edge.  The reward will be 0 for the last frame, where this does occur.
+
+	   allPossibleMoves: This will be an array containing all possible moves.  Decide must return
+	   a value from this array.
+
+	   The function "decide" will need to initialize certain variables if this is the first step of a training episode.
+	   It will also need to store the state and reward of each step so that the end function can alter the
+	   action-value function in accord with them. 
+	*/
+	it('has a decide function', function(){
+		var m =  new rl();
+		expect(typeof m.decide).to.equal('function')
+	});
+
+	/* The function 'end' is called similarly to 'decide': state, reward, and a callback.
+
+	   The state and the reward as as before.  The callback must be called when "decide" is done,
+	   or else things will break.
+
+	   The only difference is that it is the last step in an episode.  So it needs to count up the 
+	   rewards following the first occurrence of each state, incorporate them into the averages for
+	   the action-value function, and 
+	 */
+	it('has an end function', function(){
+		var m =  new rl();
+		expect(typeof m.end).to.equal('function')
 	});
 
 })

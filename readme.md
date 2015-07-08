@@ -161,7 +161,7 @@ The first is what the Euclidean norm of a vector is.
 
 There are many different **norms** for measuring the length of vectors; a norm is generally speaking a function that assigns a positive length to any vector in any dimensionality.  Each norm takes a vector and returns a positive number.  The one that we'll use is called the **Euclidean Norm**.
 
-To product the Euclidean norm for a vector, take the square root of the sums of the squares of the elements.
+To produce the Euclidean norm for a vector, take the square root of the sums of the squares of the elements.
 
 So, for the vector [3,4], the Euclidean Norm is [5]:
 

@@ -4,7 +4,7 @@
 
 ### Introduction to the Introduction
 
-The purpose of this workshop is to give you an broad, accurate, although somewhat cursory understanding of machine learning.
+The purpose of this workshop is to give you a broad, accurate, although somewhat cursory understanding of machine learning.
 
 More particularly, it aims to help you understand and program some of the common algorithms used in machine learning.  It aims to guide you through what is involved in training these algorithms and verifying this training.  And it aims to do all this over the subfields of supervised machine learning, unsupervised machine learning, and reinforcement learning.
 
@@ -18,15 +18,15 @@ Ok.  So what is machine learning?
 
 Let's contrast the process of coding and using a machine learning algorithm with the process of coding and using a non-machine-learning algorithm.
 
-Suppose you wished to write a non-machine learning algorithm that could detect when an image has a face in it.  You might come up with an idea for a program that searches for symetrical dark spots in the image, with a brighter spot above them and two brighter spots below them--that is, two eyes beneath a forehead and above cheeks.  (This is the basis of facial detection with [Haar-like features](https://en.wikipedia.org/wiki/Haar-like_features).   You might try out the algorithm on some images, and tweak the settings to make it work better.  You could go back and forth between algorithm and data a few times.
+Suppose you wished to write a non-machine learning algorithm that could detect when an image has a face in it.  You might come up with an idea for a program that searches for symetrical dark spots in the image, with a brighter spot above them and two brighter spots below them--that is, two eyes beneath a forehead and above cheeks.  (This is the basis of facial detection with [Haar-like features](https://en.wikipedia.org/wiki/Haar-like_features).)   You might try out the algorithm on some images, and tweak the settings to make it work better.  You could go back and forth between algorithm and data a few times.
 
 But then, when you were satisfied with it, you could use the function in your program and you would be done.  If you had found the algorithm online, you could have just used it in your program without doing anything else.
 
 The same task could be done by machine learning.  In this case, you'd also need to begin with an algorithm.  But instead of directly writing an algorithm that detects a face, you would write an algorithm that learns from experience.  After writing such an algorithm--or just choosing one from an ML (machine learning) library--you would then train it.  To train it, you would show it hundreds, or thousands, or millions of images with faces and images without faces, each correspondingly labelled as having or not having a face.  The algorithm would learn how to classify images as having or not having faces from this training data.  You would probably go back and forth between tweaking the algorithm and its settings and tweaking the training data.
 
-Then, after writing the algorithm and training it, would you be able to use it in your program.  Even if you had found the algorithm online, you would still have needed to train it, unless you found an algorithm pre-trained to recognize faces.
+Then, after writing the algorithm and training it, you would be able to use it in your program.  Even if you had found the algorithm online, you would still have needed to train it, unless you found an algorithm pre-trained to recognize faces.
 
-So machine learning adds some stages to the process of going from nothing to a working product.  Non-ML algorithms are ready to go from the start, once the algorithm is done; ML algorithms nees to be trained before they can be used.
+So machine learning adds some stages to the process of going from nothing to a working product.  Non-ML algorithms are ready to go from the start, once the algorithm is done; ML algorithms need to be trained before they can be used.
 
 ### A More Formal Definition of ML
 
@@ -34,11 +34,11 @@ Here's a widely quoted, more formal definition of machine learning:
 
 > A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.
 
-Or, to again put things more colloquially, a machine learning algorithm is an algorithm that gets better at doing something when you give it experience.
+Or, to again put things more colloquially, a program using a machine learning algorithm produces measurably better results the more experience it gains.
 
 ### Kinds of Machine Learning Algorithm
 
-Machine learning has broad aplicablity.  It's used for computer vision, stock trading, self-driving cars, voice recognition, face recognition, bioengineering, and more.  So of course the field and the algorithms in it can be divided into further sub-categories.
+Machine learning has broad aplicablity.  It's used for computer vision, stock trading, self-driving cars, voice recognition, facial recognition, bioengineering, and more.  So of course the field and the algorithms in it can be divided into further sub-categories.
 
 The main way that machine learning algorithms are divided is by learning method.  To put this another way, the main way that ML algorithms are categorized according to the kind of experience they learn from.
 
@@ -69,7 +69,7 @@ K-nearest neighbors, support vector machines, naive Bayes, neural networks, and 
 
 As the name indicates, the experience from which an algorithm learns in unsupervised learning is a set of example inputs--without any desired outputs attached to them.
 
-The question that probably comes to mind is "What one can learn from an unlabeled set of data?"  It might seem impossible.  But it is nevetheless possible to learn to characterize the structure of such data in many interesting ways.
+The question that probably comes to mind is "What can one learn from an unlabeled set of data?"  It might seem impossible.  But it is nevetheless possible to learn to characterize the structure of such data in many interesting ways.
 
 One thing one can do with unlabelled data is cluster analysis.  Supppose you were given a dataset with the heights, weights, shoe-sizes, 500m and 50m sprint times, and maximum bench-press weights of some college athletes.  You might find that there would be several different clusters of data points.  There might be a cluster of people who weighed more and had large bench-press weights, which might indicate the football players.  There might be another cluster of data around people with good 500m sprint times and lower weights, which indicates the track-and-field atheletes.  And so on and so forth.  Trying to count and locate such clusters can be very interesting, and is one of the things that unsupervised learning algorithms can do.
 
@@ -83,9 +83,9 @@ Reinforcement learning is signficantly different from either supervised or unsup
 
 In reinforcement learning, the algorithm you write controls an agent inside some particular environment, which gets feedback in the form of a reward or punishment.  The agent then learns to act so as to maximize the reward it recieves.  Let me give an example from outside of machine learning to help you understand this.
 
-Once some animal intelligence researchers decided to try to teach a group of dolphins to do [novel tricks](http://www.theguardian.com/science/2003/jul/03/research.science).  To do this, they began to reward dolphins with fish whenever the dolphin did some trick that they had not done before during the training session.  At first the dolphins recieved many fish, as they ran through their initial repertoir of tricks.  Then they slowed down, and seemed to get frustrated because they could not figure out what to do to receive a reward.  Finally, they seemed to hit on the idea--and immediately they began to do many things they had never done before, so they could get the reward.
+Once some animal intelligence researchers decided to try to teach a group of dolphins to do [novel tricks](http://www.theguardian.com/science/2003/jul/03/research.science).  To do this, they began to reward dolphins with fish whenever the dolphin did some trick that they had not done before during the training session.  At first the dolphins recieved many fish, as they ran through their initial repertoire of tricks.  Then they slowed down, and seemed to get frustrated because they could not figure out what to do to receive a reward.  Finally, they seemed to hit on the idea--and immediately they began to do many things they had never done before, so they could get the reward.
 
-The dolphins are like the agent controlled by your machine learning algorithm.  The fish are the like rewards the environment doles out.  The problem, then, is for your algorithm to figure out what actions and what sequences of actions will result in the greatest reward--even though the algorithm is never explicitly told this.  It may be the case that actions with a great short-term reward result in long-term losses, which is another difficulty with this kind of learning.  As in supervised learing, there's a notion of the environment telling you what is right and what is wrong; unlike in supervised learning, though, the signals for right and wrong aren't tied to any particular input or output.
+The dolphins are like the agent controlled by your machine learning algorithm.  The fish are like rewards the environment doles out.  The problem, then, is for your algorithm to figure out what actions and what sequences of actions will result in the greatest reward--even though the algorithm is never explicitly told this.  It may be the case that actions with a great short-term reward result in long-term losses, which is another difficulty with this kind of learning.  As in supervised learing, there's a notion of the environment telling you what is right and what is wrong; unlike in supervised learning, though, the signals for right and wrong aren't tied to any particular input or output.
 
 Reinforcement learning is one of the most complex and interesting types of machine learning, so I'll save any further discussion of it utill the section devoted to it.  Temporal difference learning, dynamic programming, and Monte-Carlo techniques are different methods of reinforcement learning.
 
@@ -257,7 +257,7 @@ When you uncomment tests for the MNIST data, a sub-program will create a set of 
 
 There are a few problems with k-nearest neighbors as we've implemented it.
 
-One problem is that the runtime for each prediction increases proportionately with the amount of training data put in.  This is very problematic. Generally speaking, runtime should be faster than training, but in k-nearest-neighbors training is nearly instantanious while runtime grows with the amount of training data.
+One problem is that the runtime for each prediction increases proportionately with the amount of training data put in.  This is very problematic. Generally speaking, runtime should be faster than training, but in k-nearest-neighbors training is nearly instantaneous while runtime grows with the amount of training data.
 
 Some algorithms get rid of unnecessary training points to try to mitigate this problem.  Read what Wikipedia has to say about the [Hart Algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm#Data_reduction) to see one algorithm that does this.
 
@@ -267,7 +267,7 @@ Another potential problem with k-nearest neighbors, as we've implemented it, has
 
 In the example above with athletes, imagine if the heights of the athletes were given in miles rather than in inches.  If this were the case, then all of the heights would be very small--and so the amount that the heights contribute to the distances in KNN would be very small.  It will turn out that height is basically ignored entirely by KNN in such a case.
 
-But we obviously don't want the results of the KNN algorithm to depend on the units of the data fed into it.  To avoid this problem, one thing you can do is **normalize** features.  When you normalize the data, you scale it so that the smallest value of any set of features is 0 and the greatest value of any set of features is 1, and ever other value for that feature is something in between.  This means that, no matter how much variance there is naturally in different parameters in the training data, each parameter in the training data will count equally.
+But we obviously don't want the results of the KNN algorithm to depend on the units of the data fed into it.  To avoid this problem, one thing you can do is **normalize** features.  When you normalize the data, you scale it so that the smallest value of any set of features is 0 and the greatest value of any set of features is 1, and every other value for that feature is something in between.  This means that, no matter how much variance there is naturally in different parameters in the training data, each parameter in the training data will count equally.
 
 ### Extra Credit / Other Algorithms
 
@@ -295,7 +295,7 @@ There are two distinct clustering tasks:
 
 The second task usually involves the first; trying to find how many clusters are contained in a particular set of data would probably involve figuring out where these clusters are located.  The first is the task we'll focus on, though.  So we'll start with k-means clustering, which is a method of solving the first task.
 
-As an aside, you should note that the notion of "cluster" is vague.  The notion of what a "good" cluster is, is correspondingly vague; the task of counting how many clusters are in a given set of data is therefore also vague.  Suppose you had a data-set of 1000 hand-written characters: every character had been written either by Bob or Alice, and every character was either an "A" or a "D."  A's differ from D's in systematic ways--but the characters written by Bob probably differ from the characters written by Alice in systematic ways as well.  So should a clustering algorithm group the characters into two groups or into four?  It depends on the purpose of the algorithm; there is no universally right answer, only a right answer relative to a situation.  Such difficulties are one of the reasons that we're focussing on the first and not the second task.
+As an aside, you should note that the notion of "cluster" is vague.  The notion of what a "good" cluster is, is correspondingly vague; the task of counting how many clusters are in a given set of data is therefore also vague.  Suppose you had a data-set of 1000 hand-written characters: every character had been written either by Bob or Alice, and every character was either an "A" or a "D."  A's differ from D's in systematic ways--but the characters written by Bob probably differ from the characters written by Alice in systematic ways as well.  So should a clustering algorithm group the characters into two groups or into four?  It depends on the purpose of the algorithm; there is no universally right answer, only a right answer relative to a situation.  Such difficulties are one of the reasons that we're focusing on the first and not the second task.
 
 ### K-Means -- The Goal
 
@@ -370,7 +370,7 @@ Here's an analogy for a local maxima.  Suppose you're trying to maximize the amo
 
 Local minima or maxima in ML algorithms are like that.  These algorithms fail to find the best overall solution because they get stuck in acceptable local solutions, where any small change in an direction results in the situation becoming worse.  And because these algorithms work only by making small changes, they get stuck there.
 
-Ways of dealing with local minima and maxima constitue an entire field.  Different ways are available depending on the algorithm in question.
+Ways of dealing with local minima and maxima constitute an entire field.  Different ways are available depending on the algorithm in question.
 
 One way to try to deal with local minima in k-means is to run Lloyd's algorithm several times; each time, start it with a different randomized set of centroids.  Each time you run it, save the solution.  After running it so many times, you could choose from these saved solutions the solution which has the smallest squared distance from the data points to the array.  There's a good chance this is not the globally best solution, but because it is the best of a sample, it is probably ok.
 
@@ -458,7 +458,7 @@ As stated, agent and environment interact over a series of discrete times steps.
 
 In each time step during the episode, the agent receives some representation of the environment's _state_.  This is usually indexed by the time-step that the agent recieves it, and so is called s<sub>t</sub>.  On the basis of this state, the agent selects an _action_ which is similarly denominated as a<sub>t</sub>.  One time step later, the agent recives a new state s<sub>t+1</sub> with reward r<sub>t+1</sub>; it decides to perform action a<sub>t+1</sub>, and so on.
 
-There are a few constraints placed on these variables.  The reward is always a single real number.  The goal of the agent, of course, is to maximize the reward received over time, not the reward recieved in any particular time-step.  More learning agents therefore will try to create a _value function_ helps it estimate the cumulative reward that will follow any particular state, or any particular action in any particular state, and thereby helps it choose actions likely to result in great reward over time.
+There are a few constraints placed on these variables.  The reward is always a single real number.  The goal of the agent, of course, is to maximize the reward received over time, not the reward recieved in any particular time-step.  Machine learning agents therefore will try to create a _value function_ that help it estimate the cumulative reward that will follow any particular state, or any particular action in any particular state, and thereby helps it choose actions likely to result in great reward over time.
 
 Another assumption many algorithms make is that there are a finite number of states.  In cases where the raw state is defined by real numbers, of course, there could easily be an infinite number of states--there is room for infinite real numbers between 0 and 1.  So in many cases the state is made discrete by rounding each number defining it to the nearest integer, or tenth of an integer or whatever is suitable fo the application at hand.  This is something that you'll do in the exercise.
 
@@ -478,7 +478,7 @@ To put things in a mildly technical fashion, a state signal is Markov if the pro
 
 A number of learning algorithms are guaranteed to converge to the best possible solution, given that the state signal they work from satisfies the Markov property. In fact, many if not most real-life state signals do *not* satisfy the Markov Property; the problem we will solve does not have a discrete state signal that does this--although the continuous state signal does.  But the algorithms that are guaranteed to work with a Markov state-signal nevertheless also often work moderately well with a state-signal that is not Markov.
 
-Remember that if the state has continuous values, as the states will in the problem we'll be working with, then there are obviously an infinite number of different states possible.  There area a few ways of dealing with this: We'll round each continuous value to a discrete value, so that there are a finite rather than infinite number of different states possible.
+Remember that if the state has continuous values, as the states will in the problem we'll be working with, then there are obviously an infinite number of different states possible.  There are a few ways of dealing with this: We'll round each continuous value to a discrete value, so that there are a finite rather than infinite number of different states possible.
 
 ### Policies
 
@@ -526,7 +526,7 @@ This will give you an aproximation of the action-value function for all states b
 
 The prior section explained how to estimate the state-action function for any soft policy by using Monte-Carlo methods.  But it's not enough to estimate the action-value function for a policy.  We need to be able to improve the policy as well.
 
-Suppose now now that the specific policy 𝜋 which the learning agent is using, and for which it has estimated the action-value function, is the ɛ-greedy policy.  The ɛ-greedy policy was introduced in the context of a the _n_ armed bandit, so let me take a second to explain what this would mean.
+Suppose now that the specific policy 𝜋 which the learning agent is using, and for which it has estimated the action-value function, is the ɛ-greedy policy.  The ɛ-greedy policy was introduced in the context of a the _n_ armed bandit, so let me take a second to explain what this would mean.
 
 On each time step, the ɛ-greedy policy is given a particular state.  It wishes to take the action which will result in the greatest value--so, in this context, this means that it will look a the values in the action-value function accessible from that state.  To rephrase the prior sentence: It will examine the action-value (Q<sup>𝜋</sup>(s,a)) function values for (s, a<sub>1</sub>), (s,a<sub>2</sub>), and so on, until it has looked at the values of the action-value function for each of the possible actions from that state.  It will then (with probability 1-ɛ) choose the action with the greatest expected cumulative reward.
 

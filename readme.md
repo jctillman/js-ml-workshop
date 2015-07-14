@@ -315,7 +315,7 @@ You'll note that this defines k-means in terms of a goal, however.  A goal is no
 
 It is common in machine learning to attempt to aproximate an ideal solution with a more rough algorithm.
 
-Lloyd's algorithm is a way to come to an aproximation of the above ideal solution.  It is by far the most common way of attempting to come to such an aproximation, though, to the extent that often it is simply called the k-means algorithm.
+Lloyd's Algorithm is a way to come to an aproximation of the above ideal solution.  It is by far the most common way of attempting to come to such an aproximation, though, to the extent that often it is simply called the k-means algorithm.
 
 This is the basic idea behind the algorithm.
 
@@ -526,7 +526,7 @@ Let me write out the algorithm explicitly.  I presuppose beneath you have a poli
 
 This will give you an aproximation of the action-value function for all states beneath a set policy.
 
-### Being Greedy
+### Being Greedy Again
 
 The prior section explained how to estimate the state-action function for any soft policy by using Monte-Carlo methods.  But it's not enough to estimate the action-value function for a policy.  We need to be able to improve the policy as well.
 

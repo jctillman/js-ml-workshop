@@ -31,6 +31,13 @@ describe('Testing required k-means functionality.', function(){
 		expect(typeof km.clusters).to.equal('function');		//Returns a list of centroids
 	});
 
+	it(' adds points to the list of points that it trains with, when train is called', function(){
+			var knn = new KMeans();
+			var typeA = randomPoints(100,[1,1],[0,0]);
+			knn.train(typeA);
+			expect(knn.points.length).to.equal(100);
+	});
+
 	/* As in the prior exercise, the following are functions which might make
 	   the task of writing the function 'clusters' much easier.  But it is
 	   not necessary that you use them in any way.  I suggest that you 
@@ -141,7 +148,7 @@ describe('Testing required k-means functionality.', function(){
 			//Should shift one of the centroids, but not the other one.
 			expect(km._shiftCentroids([[0,0],[100,100]],[[1,0],[0,1],[-1,0],[0,-1],[200,201],[201,200],[199,200],[200,199]])).to.eql([[0,0],[200,200]]);
 			//Should shift both of the centroids.
-			expect(km._shiftCentroids([[0,0],[100,100]],[[1,0],[0,1],[-1,0],[0,-1],[200,201],[201,200],[199,200],[200,199]])).to.eql([[0,0],[200,200]]);
+			expect(km._shiftCentroids([[0,1],[101,100]],[[4,0],[0,4],[-4,0],[0,-4],[200,202],[202,200],[198,200],[200,198]])).to.eql([[0,0],[200,200]]);
 		});
 
 		/* The function '_haveShifted' takes two lists of vectors.
@@ -168,7 +175,9 @@ describe('Testing required k-means functionality.', function(){
 		/* If you follow the path lined out here, .cluster will return the best cluster
 		   of several iterations of k-means.
 
-		   This function, '_clusters', simply returns a single cluster produced by one iteration of k-means.
+		   This function, '_clusters', simply returns a single group of clusters produced by one 
+		   complete iteration of k-means.  That is, it loops through Lloyd's algorithm until
+		   the centroids have ceased moving or ceased moving by more than a certain amount.
 
 		   This will probably use '_shiftCentroids' and '_haveShifted'.  You might find it useful to
 		   write an ancillary function that helps you choose random initial locations from the
@@ -215,13 +224,6 @@ describe('Testing required k-means functionality.', function(){
 
 	/*Alright, all of that prep work done, now for the rest of the problem.*/
 	describe('The algorithm can find locations successfully with the function clusters.', function(){
-
-		it(' adds points to the list of points that it trains with, when train is called', function(){
-			var knn = new KMeans();
-			var typeA = randomPoints(100,[1,1],[0,0]);
-			knn.train(typeA);
-			expect(knn.points.length).to.equal(100);
-		});
 
 		/* The function .clusters takes a number.  It returns an array of vectors,
 		   each vector being the location of a centroid determined by the function.

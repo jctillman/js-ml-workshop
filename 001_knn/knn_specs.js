@@ -233,8 +233,8 @@ describe('Testing the basic KNN functionality.', function(){
 			knn.train(typeA);
 			knn.train(typeB);
 			var typeB = randomPoints(100,[1,1],[.95,0]).map(function(n){ return [n,1] });
-			expect(knn.score(typeB) > 0.85).to.equal(true);
-			expect(knn.score(typeB) < 1).to.equal(true);
+			expect(knn.score(typeB) > 0.65).to.equal(true);
+			expect(knn.score(typeB) <= 1).to.equal(true);
 		});
 
 	});

@@ -17,6 +17,11 @@ var randomPoints = require('../lib/rand');
       the n-th value in each vector is chosen by multiplying the n-th
       value in the first parameter with a random number from 0 to 1, 
       and then adding the n-th value of the third parameter.
+
+   A more natural way to say this is that randomPoints gives you an array of
+   points (of the length of the first argument) filling a hypercube (with
+   the dimensions of the third argument) and starting at the point 
+   defined by the second argument.
 */
 
 

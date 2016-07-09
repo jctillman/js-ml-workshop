@@ -34,7 +34,8 @@ describe('Testing the basic KNN functionality.', function(){
 		expect(typeof KNN).to.equal('function');
 	});
 
-	//Objects created by the KNN should have a kSize variable, set by the constructor, and a points array.
+	//Objects created by the KNN should have a kSize variable,
+	//set by the constructor, and a points array.
 	//The points array holds the training data.
 	it('creates instances with k-size and an empty points array', function(){
 		var knn = new KNN(10);
@@ -52,8 +53,9 @@ describe('Testing the basic KNN functionality.', function(){
 
 		/*
 		   Train takes an array of training data and stores it.
+
 		   Each training element, in an array of training data, is an array of length two.
-		      The first element of the subarray is a vector -- an array of numbers.
+		      The first element of the subarray is a vector -- an array of numbers, of arbitrary length.
 		      The second element of the subarray is a classification -- a number.
 
 		      This is the standard way that training data is represented throughout
@@ -214,6 +216,8 @@ describe('Testing the basic KNN functionality.', function(){
 			knn.train(typeB);
 			var sample = randomPoints(100,[1,1],[1,0])
 			var results = knn.predict(sample);
+			//Note this isn't actually testing anything it gets back, just 
+			//that it runs.  
 		});
 
 		/* The purpose of score is to take in another set of data in the same format as training data.
@@ -238,7 +242,7 @@ describe('Testing the basic KNN functionality.', function(){
 			knn.train(typeA);
 			knn.train(typeB);
 			var typeB = randomPoints(100,[1,1],[.95,0]).map(function(n){ return [n,1] });
-			expect(knn.score(typeB) > 0.65).to.equal(true);
+			expect(knn.score(typeB) > 0.6).to.equal(true);
 			expect(knn.score(typeB) <= 1).to.equal(true);
 		});
 
